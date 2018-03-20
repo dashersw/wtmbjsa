@@ -51,7 +51,7 @@ router.post('/:id/friends', async (req, res, next) => {
     person.friends.addToSet(target)
     const updatedPerson = await person.save()
     res.send(updatedPerson)
-});
+})
 
 router.delete('/:id', async (req, res, next) => {
     await PersonService.del(req.params.id)

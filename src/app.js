@@ -6,19 +6,19 @@ const TwitterStrategy = require('passport-twitter').Strategy
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 
-const User = require('./models/user-model');
+const User = require('./models/user-model')
 
 require('./database-connection')
 
 const app = express()
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false}))
 app.use(cookieParser())
 app.set('view engine', 'pug')
 app.set('views', `${__dirname}/views`)
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 app.use(session({ secret: 'wtmberlin', resave: true, saveUninitialized: true }))
 app.use(passport.initialize())
@@ -30,9 +30,9 @@ passport.use(new TwitterStrategy({
     callbackURL: "http://localhost:3000/auth/twitter/callback"
 }, (token, tokenSecret, profile, done) => {
     User.findOneAndUpdate({ username: profile.username }, profile, { upsert: true, new: true }, done)
-}));
+}))
 
-passport.use(User.createStrategy());
+passport.use(User.createStrategy())
 
 const person = require('./routes/person')
 const auth = require('./routes/auth')
