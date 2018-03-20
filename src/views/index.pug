@@ -1,4 +1,9 @@
 extends layout
 
 block content
-    h1 Hello! Did I update? ^^
+    h1 Hello
+
+    if username
+        p You are #{username}
+    else
+        p You are an unknown user

@@ -3,18 +3,20 @@ const router = express.Router()
 
 const PersonService = require('../services/person-service')
 
+const isLoggedIn = require('../middleware/is-logged-in')
+
 const middleware = (req, res, next) => {
     console.log('I won\'t allow access to this')
     res.send('no')
 }
 
-router.get('/*/json', middleware)
+router.get('/*/json', isLoggedIn)
 
 router.get('/', async (req, res, next) => {
     res.send(await PersonService.findAll())
 })
 
-router.get('/all', async (req, res, next) => {
+router.get('/all', isLoggedIn, async (req, res, next) => {
     const people = await PersonService.findAll()
     res.render('person-list', {people})
 })
