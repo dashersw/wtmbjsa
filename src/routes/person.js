@@ -3,6 +3,13 @@ const router = express.Router()
 
 const PersonService = require('../services/person-service')
 
+const middleware = (req, res, next) => {
+    console.log('I won\'t allow access to this')
+    res.send('no')
+}
+
+router.get('/*/json', middleware)
+
 router.get('/', async (req, res, next) => {
     res.send(await PersonService.findAll())
 })
