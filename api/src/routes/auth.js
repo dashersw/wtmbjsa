@@ -14,8 +14,8 @@ router.post('/register', (req, res, next) => {
 
 router.post('/local',
     passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/auth/login'
+        successRedirect: '/api',
+        failureRedirect: '/api/auth/login'
     })
 )
 
@@ -23,8 +23,8 @@ router.get('/twitter', passport.authenticate('twitter'))
 
 router.get('/twitter/callback',
     passport.authenticate('twitter', {
-        successRedirect: '/',
-        failureRedirect: '/auth/login'
+        successRedirect: '/api',
+        failureRedirect: '/api/auth/login'
     })
 )
 
