@@ -24,13 +24,18 @@ app.use(session({ secret: 'wtmberlin', resave: true, saveUninitialized: true }))
 app.use(passport.initialize())
 app.use(passport.session())
 
-passport.use(new TwitterStrategy({
-    consumerKey: process.env.TWITTER_CONSUMER_KEY,
-    consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: "http://localhost:3000/auth/twitter/callback"
-}, (token, tokenSecret, profile, done) => {
-    User.findOneAndUpdate({ username: profile.username }, profile, { upsert: true, new: true }, done)
-}))
+
+const { TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET } = process.env
+
+if (TWITTER_CONSUMER_KEY && TWITTER_CONSUMER_SECRET) {
+    passport.use(new TwitterStrategy({
+        consumerKey: TWITTER_CONSUMER_KEY,
+        consumerSecret: TWITTER_CONSUMER_SECRET,
+        callbackURL: "http://localhost:3000/auth/twitter/callback"
+    }, (token, tokenSecret, profile, done) => {
+        User.findOneAndUpdate({ username: profile.username }, profile, { upsert: true, new: true }, done)
+    }))
+}
 
 passport.use(User.createStrategy())
 

@@ -1,35 +1,32 @@
-# REST API example with Express.js
+# An example full-stack Node.js application
 
 Clone the repository:
 
 ```
-git clone git@github.com:dashersw/wtmbjs-4.git
+git clone git@github.com:dashersw/wtmbjsa.git
 ```
-
+## Manual installation and operation
 Enter the project folder and install dependencies:
 
 ```
-cd wtmbjs-4
+cd wtmbjsa
 npm install
 ```
 
-Run the project:
-
+Make sure you have MongoDB up and running and then run
 ```
-node index.js
+npm start
 ```
 
+## Working with docker
 ----
 
-## Final step
+Add `app-local.arm.ag` to your `hosts` file or modify the `docker-compose.yml` file to use any other domain and add that to your `hosts` file.
 
-Check out the `final` branch to see the whole project in action.
-
+Make sure you have docker and docker-compose installed locally and then run
 ```
-git checkout final
+docker-compose up
 ```
-
-And run the code again.
 
 You can visit the following URLs;
 
