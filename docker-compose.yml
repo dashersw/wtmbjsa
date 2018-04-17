@@ -1,19 +1,35 @@
 version: '3'
 
 services:
-  app:
+  api:
     build:
-      context: .
+      context: api
       dockerfile: development.Dockerfile
     environment:
-      - VIRTUAL_HOST=app-local.arm.ag
+      - VIRTUAL_HOST=app-local.arm.ag/api,app-local.arm.ag/api/*
+      - VIRTUAL_HOST_WEIGHT=1
       - DB_URL=mongodb://mongodb/wtm
     ports:
       - 3000:3000
     volumes:
-      - ./src:/app/src
+      - ./api/src:/app/src
     depends_on:
       - mongodb
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: development.Dockerfile
+    environment:
+      - HOST=0.0.0.0
+      - VIRTUAL_HOST=app-local.arm.ag
+      - APP_ENV=development
+    volumes:
+      - ./frontend/config:/app/config
+      - ./frontend/src:/app/src
+      - ./frontend/static:/app/static
+    expose:
+      - 8080
 
   mongodb:
     image: mongo:latest
@@ -21,7 +37,8 @@ services:
   load-balancer:
     image: dockercloud/haproxy
     links:
-      - app
+      - api
+      - frontend
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
