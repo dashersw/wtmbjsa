@@ -31,7 +31,7 @@ if (TWITTER_CONSUMER_KEY && TWITTER_CONSUMER_SECRET) {
     passport.use(new TwitterStrategy({
         consumerKey: TWITTER_CONSUMER_KEY,
         consumerSecret: TWITTER_CONSUMER_SECRET,
-        callbackURL: "http://localhost:3000/auth/twitter/callback"
+        callbackURL: "http://localhost:3000/api/auth/twitter/callback"
     }, (token, tokenSecret, profile, done) => {
         User.findOneAndUpdate({ username: profile.username }, profile, { upsert: true, new: true }, done)
     }))

@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1 Log in
-    form(action="/auth/local" method="post")
+    form(action="/api/auth/local" method="post")
         div
             label Username:
             input(type="text" name="username")
@@ -11,4 +11,4 @@ block content
             input(type="password" name="password")
         div
             input(type="submit" value="Log in")
-    a(href="/auth/twitter") Log in via twitter
+    a(href="/api/auth/twitter") Log in via twitter

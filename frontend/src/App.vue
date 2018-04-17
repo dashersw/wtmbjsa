@@ -1,12 +1,14 @@
 <script>
+import store from '@/store/index'
+
 export default {
+  store,
   name: 'App'
 }
 </script>
 
 <template lang="pug">
   #app
-    img(src="./assets/logo.png")
     router-view
 </template>
 
