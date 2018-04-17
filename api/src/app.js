@@ -42,10 +42,10 @@ passport.use(User.createStrategy())
 const person = require('./routes/person')
 const auth = require('./routes/auth')
 
-app.use('/person', person)
-app.use('/auth', auth)
+app.use('/api/person', person)
+app.use('/api/auth', auth)
 
-app.get('/', (req, res, next) => {
+app.get('/api', (req, res, next) => {
     res.render('index', { username: req.user && req.user.username })
 })
 
