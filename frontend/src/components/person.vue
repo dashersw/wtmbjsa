@@ -15,6 +15,7 @@
     pre= JSON.stringify(people, null, 2)
   div(v-else)
     p There's no one yet :(
+  .button(@click="fetchPeople") Click me to refresh the list of people!
 </template>
 
 <script>
